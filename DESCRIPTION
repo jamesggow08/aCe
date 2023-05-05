@@ -1,0 +1,30 @@
+Package: iCePrep
+Title: Prepare Blood Pressure Data for iCe
+Version: 1.0.7
+Imports:
+    data.table,
+    dplyr,
+    ggplot2,
+    ggpubr,
+    grid,
+    Hmisc,
+    png,
+    raster
+Author: James Gow
+Maintainer: James gow <james.g.gow.21@gmail.com>
+Description: Extracts Pulse Wave information from EndoPAT derived PDF to calculate initial linear slope of pulse wave rise in response to hypoxemia.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+VersionUpdates: 1.0.2 -- i) replace awk command line call with the baseR distinct function
+                1.0.3 -- i) replace legacy plots with ggplot graph
+                1.0.4 -- i) adjust code for new EndoPAT data extraction and remove cleaning filter to reduce influence of aberrant readings
+                1.0.5 -- i) asjust inflection point code to capture maxima and minima too to adjust for Pre exercise dataset; 
+                ii) remove the rounding filtering of localMaxima;
+                iii) looped the filtering by differential to improve removal of clustered inaccurate EndoPat readings;
+                iv) dropped legacy graphs; and
+                v) added manula check graphs in the local
+                1.0.6 -- i) add ggplot overlay for external viewship; and
+                ii) combine Pre and Post exercise into single function
+                1.0.7 -- i) add in new function to process images (png) into datatables for use in iCe_demo
