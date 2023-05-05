@@ -1,11 +1,14 @@
 # iCe
 
 Purpose: Prepare Blood Pressure Data for iCe -- Extracts Pulse Wave information from EndoPAT derived PDF to calculate initial linear slope of pulse wave rise in response to hypoxemia.
+
 Current Version: 1.0.7
+
 Dependencies: data.table, dplyr, ggplot2, ggpubr, grid, Hmisc, png, raster
+
 Author: James Gow
-License: MIT + file LICENSE
-Encoding: UTF-8
+
+
 Version History:
 1.0.2 -- i) replace awk command line call with the baseR distinct function
 1.0.3 -- i) replace legacy plots with ggplot graph
