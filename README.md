@@ -21,6 +21,7 @@ Version History:
 1.0.6 -- i) add ggplot overlay for external viewship; and
          ii) combine Pre and Post exercise into single function
 1.0.7 -- i) add in new function to process images (png) into datatables for use in iCe_demo
+1.0.8 -- i) allow for manual adjustment of minima and maxima for ClientGraph
 
 Execution Sample: setwd("/Users/jamesgow/Desktop/test")
                   Image_Process("post.png", "AndrewGow_Post", "T")
