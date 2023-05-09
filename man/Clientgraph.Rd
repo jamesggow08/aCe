@@ -4,7 +4,7 @@
 \alias{Clientgraph}
 \title{Make a ggplot overlay for client viewing}
 \usage{
-Clientgraph(x, y, n)
+Clientgraph(x, y, n, m, o, v, z)
 }
 \arguments{
 \item{x}{pre-exercise data}
@@ -12,6 +12,14 @@ Clientgraph(x, y, n)
 \item{y}{post-exercise data}
 
 \item{n}{string for naming}
+
+\item{m}{string for x graph minima}
+
+\item{o}{string for x graph maxima}
+
+\item{v}{string for y graph minima}
+
+\item{z}{string for y graph maxima}
 }
 \value{
 ClientGraph_test.png
@@ -20,5 +28,5 @@ ClientGraph_test.png
 Make a ggplot overlay for client viewing
 }
 \examples{
-Clientgraph(Pre, Post, "name")
+Clientgraph(Pre, Post, "name", "0", "600", "0", "300")
 }

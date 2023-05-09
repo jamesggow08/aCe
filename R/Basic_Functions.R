@@ -344,6 +344,10 @@ inflecpoints <- function(x) {
 #' @param x pre-exercise data
 #' @param y post-exercise data
 #' @param n string for naming
+#' @param m string for x graph minima
+#' @param o string for x graph maxima
+#' @param v string for y graph minima
+#' @param z string for y graph maxima
 #'
 #' @return ClientGraph_test.png
 #' @export Clientgraph
@@ -352,12 +356,16 @@ inflecpoints <- function(x) {
 #' @import grid
 #' @import ggpubr
 #'
-#' @examples Clientgraph(Pre, Post, "name")
-Clientgraph <- function(x, y, n) {
+#' @examples Clientgraph(Pre, Post, "name", "0", "600", "0", "300")
+Clientgraph <- function(x, y, n, m, o, v, z) {
+  min <- as.numeric(m)
+  max <- as.numeric(o)
+  tmin <- as.numeric(v)
+  tmax <- as.numeric(z)
   wd <- getwd()
   name2 <- paste0("ClientGraph_", n, ".png")
-  x$Time <- x$Relative_time*1.2
-  y$Time <- y$Relative_time*1.2
+  x$Time <- x$Relative_time/2.16 #multiplier is to turn relative units to seconds calculated from a reference screenshot
+  y$Time <- y$Relative_time/2.16
 
   img <- readPNG("iCe_vector.png")
   g2 <- matrix(rgb(img[,,1],img[,,2],img[,,3],img[,,4] * 0.15), nrow=dim(img)[1]) ## you can change 0.5 to change the alpa
@@ -366,17 +374,17 @@ Clientgraph <- function(x, y, n) {
   #ref2 <- rasterGrob(ref, interpolate=TRUE)
 
   ggplot(x, aes(x = Time, y = Pulse_Wave) ) +
-    annotation_custom(g, xmin=25, xmax=275, ymin=30, ymax=330) +
+    annotation_custom(g, xmin=(tmax-.95*tmax), xmax=(0.95*tmax), ymin=(max-0.95*max), ymax=(0.95*max)) +
     #annotation_custom(ref2, xmin=210, xmax=Inf, ymin=-Inf, ymax=100)+
-    geom_point(color= "#006fb7") +
+    geom_point(color= "#197E9A") +
     geom_point(data=x[x$min == "1",],color="#002f65",size=3) +
-    geom_point(data=x[x$intslope == "1",],color="#5ad2f6") +
+    geom_point(data=x[x$intslope == "1",],color="#2dbfc6") +
     geom_point(data = y, color="#cd2400") +
     geom_point(data=y[y$min == "1",],color="#8b0000",size=3) +
-    geom_point(data=y[y$intslope == "1",],color="#ff4500") +
+    geom_point(data=y[y$intslope == "1",],color="#FF4F00") +
     #geom_hline(yintercept=c(125, 200), linetype='dashed', color=c('red', 'red')) +
-    xlim(0, 300) +
-    ylim(0, 360) +
+    xlim(tmin, tmax) +
+    ylim(min, max) +
     theme_classic() +
     xlab("Time (seconds)")+
     ylab("Pulse Pressure")+
@@ -394,7 +402,9 @@ Clientgraph <- function(x, y, n) {
     name2,
     plot = last_plot(),
     path = wd,
-    scale = 1
+    scale = 1,
+    width = 6.03,
+    height = 7.04
     #bg = "transparent"
   )
 }

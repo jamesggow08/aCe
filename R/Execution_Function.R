@@ -87,6 +87,10 @@ iCe_post <- function(x, y) {
 #' @param x pre exercise dataset created by the EndoPAT graph
 #' @param y post exercise dataset created by the EndoPAT graph
 #' @param n string used to name the outputs
+#' @param m min value for x axis of graph
+#' @param o max value for x axis of graph
+#' @param v min value for y axis of graph
+#' @param z max value for z axis of graph
 #'
 #' @return .csv files of inflection points (minima in first derivative)
 #' @return .text files with description of linear regression of first portion of pulse pressure graph
@@ -97,12 +101,12 @@ iCe_post <- function(x, y) {
 #' @export iCe_demo
 #'
 #' @examples iCe_demo("data_PreT.csv", "data_PostT.csv", "Patient_name")
-iCe_demo <- function(x, y, n) {
+iCe_demo <- function(x, y, n, m, o, v, z) {
   m <<- "Pre"
   iCe_pre(x, n)
   m <<- "Post"
   iCe_post(y, n)
-  Clientgraph(Pre, Post, n)
+  Clientgraph(Pre, Post, n, m, o, v, z)
 
   #Clean Up
   rm(data2, envir = .GlobalEnv)
