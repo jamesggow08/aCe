@@ -333,6 +333,7 @@ inflecpoints <- function(x) {
   localmin <- localMaxima(x$Pulse_Wave)
   lmin <- x[x$row_num %in% localmin, ]
   setorder(lmin, cols = "Pulse_Wave")
+  lmin$Pulse_Wave <- lmin$Pulse_Wave*-1
   min <- tail(lmin, n=1)
 
   inflection_points <- rbind(inflection_point,max,min)
@@ -344,26 +345,28 @@ inflecpoints <- function(x) {
 #' @param x pre-exercise data
 #' @param y post-exercise data
 #' @param n string for naming
-#' @param l string for Pressure minima
-#' @param o string for Pressure maxima
-#' @param v string for Time minima
-#' @param z string for Time maxima
 #'
 #' @return ClientGraph_test.png
 #' @export Clientgraph
 #'
+#' @import dplyr
 #' @import png
 #' @import grid
 #' @import ggpubr
 #'
 #' @examples Clientgraph(Pre, Post, "name", "0", "600", "0", "300")
-Clientgraph <- function(x, y, n, l, o, v, z) {
-  min <- as.numeric(l)
-  max <- as.numeric(o)
-  tmin <- as.numeric(v)
-  tmax <- as.numeric(z)
-
+Clientgraph <- function(x, y, n) {
   wd <- getwd()
+  tem <- paste0(wd, "/inflectionpoints", n, "_Post.csv")
+  infec2 <- as.data.table(read.csv(tem))
+  infec3 <- infec2 %>% arrange(desc(Pulse_Wave))
+  max <- as.numeric(infec3[1, "Pulse_Wave"])
+  rmax <- (max*0.15+max)
+  pres <- y %>% arrange(desc(Relative_time))
+  tmax <- as.numeric(pres[1, "Relative_time"])
+  ttmax <- tmax/2.16
+  ttmax2 <- (ttmax*0.05+ttmax)
+
   name2 <- paste0("ClientGraph_", n, ".png")
   x$Time <- x$Relative_time/2.16 #multiplier is to turn relative units to seconds calculated from a reference screenshot
   y$Time <- y$Relative_time/2.16
@@ -375,7 +378,7 @@ Clientgraph <- function(x, y, n, l, o, v, z) {
   #ref2 <- rasterGrob(ref, interpolate=TRUE)
 
   ggplot(x, aes(x = Time, y = Pulse_Wave) ) +
-    annotation_custom(g, xmin=(tmax-.95*tmax), xmax=(0.95*tmax), ymin=(max-0.95*max), ymax=(0.95*max)) +
+    annotation_custom(g, xmin=(ttmax2-.95*ttmax2), xmax=(0.95*ttmax2), ymin=(rmax-0.95*rmax), ymax=(0.95*rmax)) +
     #annotation_custom(ref2, xmin=210, xmax=Inf, ymin=-Inf, ymax=100)+
     geom_point(color= "#197E9A") +
     geom_point(data=x[x$min == "1",],color="#002f65",size=3) +
@@ -384,8 +387,8 @@ Clientgraph <- function(x, y, n, l, o, v, z) {
     geom_point(data=y[y$min == "1",],color="#8b0000",size=3) +
     geom_point(data=y[y$intslope == "1",],color="#FF4F00") +
     #geom_hline(yintercept=c(125, 200), linetype='dashed', color=c('red', 'red')) +
-    xlim(tmin, tmax) +
-    ylim(min, max) +
+    xlim(0, ttmax2) +
+    ylim(0, rmax) +
     theme_classic() +
     xlab("Time (seconds)")+
     ylab("Pulse Pressure")+

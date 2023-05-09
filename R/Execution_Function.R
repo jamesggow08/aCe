@@ -34,7 +34,10 @@ iCe_pre <- function(x, y) {
   print ("Slope Calculated")
   inflecpoints(dapulsewave)
   name <- paste0("inflectionpoints", y, "_Pre.csv")
-  write.table(inflection_points, file=name, sep=",")
+  inflection_points2 <- inflection_points[, c(1, 2, 3, 4)]
+  inflection_points3 <- inflection_points2 %>% arrange(Relative_time)
+  inflection_points3$Corrected_time <- inflection_points3$Relative_time/2.16
+  write.table(inflection_points3, file=name, sep=",", row.names = FALSE)
   print ("Inflection Points Found")
   name <- paste0(y, "_Pre")
   iCegraph(x = predpulsewave, n=name)
@@ -75,7 +78,10 @@ iCe_post <- function(x, y) {
   print ("Slope Calculated")
   inflecpoints(dapulsewave)
   name <- paste0("inflectionpoints", y, "_Post.csv")
-  write.table(inflection_points, file=name, sep=",")
+  inflection_points2 <- inflection_points[, c(1, 2, 3, 4)]
+  inflection_points3 <- inflection_points2 %>% arrange(Relative_time)
+  inflection_points3$Corrected_time <- inflection_points3$Relative_time/2.16
+  write.table(inflection_points3, file=name, sep=",", row.names = FALSE)
   print ("Inflection Points Found")
   name <- paste0(y, "_Post")
   iCegraph(x = predpulsewave, n=name)
@@ -87,10 +93,6 @@ iCe_post <- function(x, y) {
 #' @param x pre exercise dataset created by the EndoPAT graph
 #' @param y post exercise dataset created by the EndoPAT graph
 #' @param n string used to name the outputs
-#' @param l string for Pressure minima
-#' @param o string for Pressure maxima
-#' @param v string for Time minima
-#' @param z string for Time maxima
 #'
 #' @return .csv files of inflection points (minima in first derivative)
 #' @return .text files with description of linear regression of first portion of pulse pressure graph
@@ -101,26 +103,26 @@ iCe_post <- function(x, y) {
 #' @export iCe_demo
 #'
 #' @examples iCe_demo("data_PreT.csv", "data_PostT.csv", "Patient_name")
-iCe_demo <- function(x, y, n, l = 0, o = 600, v = 0, z = 300) {
+iCe_demo <- function(x, y, n) {
   m <<- "Pre"
   iCe_pre(x, n)
   m <<- "Post"
   iCe_post(y, n)
-  Clientgraph(Pre, Post, n, l, o, v, z)
+  Clientgraph(Pre, Post, n)
 
   #Clean Up
-  rm(data2, envir = .GlobalEnv)
-  rm(FinalMaxima4, envir = .GlobalEnv)
-  rm(FinalMinima4, envir = .GlobalEnv)
-  rm(MaximaRows, envir = .GlobalEnv)
-  rm(MinimaRows, envir = .GlobalEnv)
-  rm(predpulsewave, envir = .GlobalEnv)
-  rm(dapulsewave, envir = .GlobalEnv)
-  rm(inflection_points, envir = .GlobalEnv)
-  rm(m, envir = .GlobalEnv)
-  rm(newvals2, envir = .GlobalEnv)
-  rm(Pre, envir = .GlobalEnv)
-  rm(Post, envir = .GlobalEnv)
+  #rm(data2, envir = .GlobalEnv)
+  #rm(FinalMaxima4, envir = .GlobalEnv)
+  #rm(FinalMinima4, envir = .GlobalEnv)
+  #rm(MaximaRows, envir = .GlobalEnv)
+  #rm(MinimaRows, envir = .GlobalEnv)
+  #rm(predpulsewave, envir = .GlobalEnv)
+  #rm(dapulsewave, envir = .GlobalEnv)
+  #rm(inflection_points, envir = .GlobalEnv)
+  #rm(m, envir = .GlobalEnv)
+  #rm(newvals2, envir = .GlobalEnv)
+  #rm(Pre, envir = .GlobalEnv)
+  #rm(Post, envir = .GlobalEnv)
 }
 
 

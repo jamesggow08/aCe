@@ -1,6 +1,6 @@
 Package: iCePrep
 Title: Prepare Blood Pressure Data for iCe
-Version: 1.0.8
+Version: 1.0.9
 Imports:
     data.table,
     dplyr,
@@ -30,3 +30,4 @@ VersionUpdates: 1.0.2 -- i) replace awk command line call with the baseR distinc
                 ii) combine Pre and Post exercise into single function
                 1.0.7 -- i) add in new function to process images (png) into datatables for use in iCe_demo
                 1.0.8 -- i) allow for manual adjustment of minima and maxima for ClientGraph
+                1.0.9 -- i) automates the adjustment of minim and maxima for ClientGraph; ii) bug fixed in inflecpoints commands
