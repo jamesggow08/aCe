@@ -13,13 +13,13 @@ iCe_demo(x, y, n, m, o, v, z)
 
 \item{n}{string used to name the outputs}
 
-\item{m}{min value for x axis of graph}
+\item{m}{string for Pressure minima}
 
-\item{o}{max value for x axis of graph}
+\item{o}{string for Pressure maxima}
 
-\item{v}{min value for y axis of graph}
+\item{v}{string for Time minima}
 
-\item{z}{max value for z axis of graph}
+\item{z}{string for Time maxima}
 }
 \value{
 .csv files of inflection points (minima in first derivative)

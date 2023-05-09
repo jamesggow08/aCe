@@ -13,13 +13,13 @@ Clientgraph(x, y, n, m, o, v, z)
 
 \item{n}{string for naming}
 
-\item{m}{string for x graph minima}
+\item{m}{string for Pressure minima}
 
-\item{o}{string for x graph maxima}
+\item{o}{string for Pressure maxima}
 
-\item{v}{string for y graph minima}
+\item{v}{string for Time minima}
 
-\item{z}{string for y graph maxima}
+\item{z}{string for Time maxima}
 }
 \value{
 ClientGraph_test.png

@@ -344,10 +344,10 @@ inflecpoints <- function(x) {
 #' @param x pre-exercise data
 #' @param y post-exercise data
 #' @param n string for naming
-#' @param m string for x graph minima
-#' @param o string for x graph maxima
-#' @param v string for y graph minima
-#' @param z string for y graph maxima
+#' @param m string for Pressure minima
+#' @param o string for Pressure maxima
+#' @param v string for Time minima
+#' @param z string for Time maxima
 #'
 #' @return ClientGraph_test.png
 #' @export Clientgraph
@@ -362,6 +362,7 @@ Clientgraph <- function(x, y, n, m, o, v, z) {
   max <- as.numeric(o)
   tmin <- as.numeric(v)
   tmax <- as.numeric(z)
+
   wd <- getwd()
   name2 <- paste0("ClientGraph_", n, ".png")
   x$Time <- x$Relative_time/2.16 #multiplier is to turn relative units to seconds calculated from a reference screenshot

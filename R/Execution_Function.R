@@ -87,10 +87,10 @@ iCe_post <- function(x, y) {
 #' @param x pre exercise dataset created by the EndoPAT graph
 #' @param y post exercise dataset created by the EndoPAT graph
 #' @param n string used to name the outputs
-#' @param m min value for x axis of graph
-#' @param o max value for x axis of graph
-#' @param v min value for y axis of graph
-#' @param z max value for z axis of graph
+#' @param m string for Pressure minima
+#' @param o string for Pressure maxima
+#' @param v string for Time minima
+#' @param z string for Time maxima
 #'
 #' @return .csv files of inflection points (minima in first derivative)
 #' @return .text files with description of linear regression of first portion of pulse pressure graph
