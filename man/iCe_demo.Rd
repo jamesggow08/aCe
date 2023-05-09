@@ -4,7 +4,7 @@
 \alias{iCe_demo}
 \title{Runs pre are post exercise iCe functions and prepares output overlay graph}
 \usage{
-iCe_demo(x, y, n, m, o, v, z)
+iCe_demo(x, y, n, l = 0, o = 600, v = 0, z = 300)
 }
 \arguments{
 \item{x}{pre exercise dataset created by the EndoPAT graph}
@@ -13,7 +13,7 @@ iCe_demo(x, y, n, m, o, v, z)
 
 \item{n}{string used to name the outputs}
 
-\item{m}{string for Pressure minima}
+\item{l}{string for Pressure minima}
 
 \item{o}{string for Pressure maxima}
 
