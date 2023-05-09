@@ -344,7 +344,7 @@ inflecpoints <- function(x) {
 #' @param x pre-exercise data
 #' @param y post-exercise data
 #' @param n string for naming
-#' @param m string for Pressure minima
+#' @param l string for Pressure minima
 #' @param o string for Pressure maxima
 #' @param v string for Time minima
 #' @param z string for Time maxima
@@ -357,8 +357,8 @@ inflecpoints <- function(x) {
 #' @import ggpubr
 #'
 #' @examples Clientgraph(Pre, Post, "name", "0", "600", "0", "300")
-Clientgraph <- function(x, y, n, m, o, v, z) {
-  min <- as.numeric(m)
+Clientgraph <- function(x, y, n, l, o, v, z) {
+  min <- as.numeric(l)
   max <- as.numeric(o)
   tmin <- as.numeric(v)
   tmax <- as.numeric(z)

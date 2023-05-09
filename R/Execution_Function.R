@@ -87,7 +87,7 @@ iCe_post <- function(x, y) {
 #' @param x pre exercise dataset created by the EndoPAT graph
 #' @param y post exercise dataset created by the EndoPAT graph
 #' @param n string used to name the outputs
-#' @param m string for Pressure minima
+#' @param l string for Pressure minima
 #' @param o string for Pressure maxima
 #' @param v string for Time minima
 #' @param z string for Time maxima
@@ -101,12 +101,12 @@ iCe_post <- function(x, y) {
 #' @export iCe_demo
 #'
 #' @examples iCe_demo("data_PreT.csv", "data_PostT.csv", "Patient_name")
-iCe_demo <- function(x, y, n, m, o, v, z) {
+iCe_demo <- function(x, y, n, l = 0, o = 600, v = 0, z = 300) {
   m <<- "Pre"
   iCe_pre(x, n)
   m <<- "Post"
   iCe_post(y, n)
-  Clientgraph(Pre, Post, n, m, o, v, z)
+  Clientgraph(Pre, Post, n, l, o, v, z)
 
   #Clean Up
   rm(data2, envir = .GlobalEnv)
