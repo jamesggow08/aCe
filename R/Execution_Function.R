@@ -111,18 +111,18 @@ iCe_demo <- function(x, y, n) {
   Clientgraph(Pre, Post, n)
 
   #Clean Up
-  #rm(data2, envir = .GlobalEnv)
-  #rm(FinalMaxima4, envir = .GlobalEnv)
-  #rm(FinalMinima4, envir = .GlobalEnv)
-  #rm(MaximaRows, envir = .GlobalEnv)
-  #rm(MinimaRows, envir = .GlobalEnv)
-  #rm(predpulsewave, envir = .GlobalEnv)
-  #rm(dapulsewave, envir = .GlobalEnv)
-  #rm(inflection_points, envir = .GlobalEnv)
-  #rm(m, envir = .GlobalEnv)
-  #rm(newvals2, envir = .GlobalEnv)
-  #rm(Pre, envir = .GlobalEnv)
-  #rm(Post, envir = .GlobalEnv)
+  rm(data2, envir = .GlobalEnv)
+  rm(FinalMaxima4, envir = .GlobalEnv)
+  rm(FinalMinima4, envir = .GlobalEnv)
+  rm(MaximaRows, envir = .GlobalEnv)
+  rm(MinimaRows, envir = .GlobalEnv)
+  rm(predpulsewave, envir = .GlobalEnv)
+  rm(dapulsewave, envir = .GlobalEnv)
+  rm(inflection_points, envir = .GlobalEnv)
+  rm(m, envir = .GlobalEnv)
+  rm(newvals2, envir = .GlobalEnv)
+  rm(Pre, envir = .GlobalEnv)
+  rm(Post, envir = .GlobalEnv)
 }
 
 
