@@ -22,6 +22,7 @@ Version History:
          ii) combine Pre and Post exercise into single function
 1.0.7 -- i) add in new function to process images (png) into datatables for use in iCe_demo
 1.0.8 -- i) allow for manual adjustment of minima and maxima for ClientGraph
+1.0.9 -- i) automates the adjustment of minim and maxima for ClientGraph; ii) bug fixed in inflecpoints command
 
 Execution Sample: setwd("/Users/jamesgow/Desktop/test")
                   Image_Process("post.png", "AndrewGow_Post", "T")
