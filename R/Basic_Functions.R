@@ -110,17 +110,17 @@ localvalremoveMax <- function(x) {
   setorder(x, cols = "Relative_time")
   FinalMaxima2 <- mutate(x, difcheck = Pressure + -lag(Pressure)) #calculate a new column to find difference in pressure between adjacent two points (to reveal where pressure jump is high and, thus, likely part of dichroic notch)
   FinalMaxima2[is.na(FinalMaxima2)] <- 0 #recode NA to 0
-  FinalMaxima3 <- FinalMaxima2[FinalMaxima2$difcheck >= -100 & FinalMaxima2$difcheck <= 100, ] #select only columns where change in pressure isn't >100
+  FinalMaxima3 <<- FinalMaxima2[FinalMaxima2$difcheck >= -100 & FinalMaxima2$difcheck <= 100, ] #select only columns where change in pressure isn't >100
 
-  FinalMaxima31 <- mutate(FinalMaxima3, difcheck = Pressure + -lag(Pressure)) #cycling to remove clusters of aberrant data
-  FinalMaxima31[is.na(FinalMaxima31)] <- 0
-  FinalMaxima32 <- FinalMaxima31[FinalMaxima31$difcheck <= 100 & FinalMaxima31$difcheck >= -100, ]
+  #FinalMaxima31 <- mutate(FinalMaxima3, difcheck = Pressure + -lag(Pressure)) #cycling to remove clusters of aberrant data
+  #FinalMaxima31[is.na(FinalMaxima31)] <- 0
+  #FinalMaxima32 <- FinalMaxima31[FinalMaxima31$difcheck <= 100 & FinalMaxima31$difcheck >= -100, ]
 
-  FinalMaxima33 <- mutate(FinalMaxima32, difcheck = Pressure + -lag(Pressure))
-  FinalMaxima33[is.na(FinalMaxima33)] <- 0
-  FinalMaxima4 <<- FinalMaxima33[FinalMaxima33$difcheck <= 100 & FinalMaxima33$difcheck >= -100, ]
+  #FinalMaxima33 <- mutate(FinalMaxima32, difcheck = Pressure + -lag(Pressure))
+  #FinalMaxima33[is.na(FinalMaxima33)] <- 0
+  #FinalMaxima4 <<- FinalMaxima33[FinalMaxima33$difcheck <= 100 & FinalMaxima33$difcheck >= -100, ]
 
-  plot(y = FinalMaxima4$Pressure, x = FinalMaxima4$Relative_time)
+  plot(y = FinalMaxima3$Pressure, x = FinalMaxima3$Relative_time)
   }
 
 #' Clean Minima output to isolate valid diastolic BP
@@ -144,17 +144,17 @@ localvalremoveMin <- function(x) {
   setorder(x, cols = "Relative_time")  #reset order based on relative time
   FinalMinima2 <- mutate(x, difcheck = Pressure + -lag(Pressure)) #calc a new column to find difference in pressure between adjacent two points (to reveal where pressure jump is high and, thus, likely part of dichroic notch)
   FinalMinima2[is.na(FinalMinima2)] <- 0
-  FinalMinima3 <- FinalMinima2[FinalMinima2$difcheck <= 100 & FinalMinima2$difcheck >= -100, ]
+  FinalMinima3 <<- FinalMinima2[FinalMinima2$difcheck <= 100 & FinalMinima2$difcheck >= -100, ]
 
-  FinalMinima31 <- mutate(FinalMinima3, difcheck = Pressure + -lag(Pressure)) #cycling to remove clusters of abberant data
-  FinalMinima31[is.na(FinalMinima31)] <- 0
-  FinalMinima32 <- FinalMinima31[FinalMinima31$difcheck <= 100 & FinalMinima31$difcheck >= -100, ]
+  #FinalMinima31 <- mutate(FinalMinima3, difcheck = Pressure + -lag(Pressure)) #cycling to remove clusters of abberant data
+  #FinalMinima31[is.na(FinalMinima31)] <- 0
+  #FinalMinima32 <- FinalMinima31[FinalMinima31$difcheck <= 100 & FinalMinima31$difcheck >= -100, ]
 
-  FinalMinima33 <- mutate(FinalMinima32, difcheck = Pressure + -lag(Pressure))
-  FinalMinima33[is.na(FinalMinima33)] <- 0
-  FinalMinima4 <<- FinalMinima33[FinalMinima33$difcheck <= 100 & FinalMinima33$difcheck >= -100, ]
+  #FinalMinima33 <- mutate(FinalMinima32, difcheck = Pressure + -lag(Pressure))
+  #FinalMinima33[is.na(FinalMinima33)] <- 0
+  #FinalMinima4 <- FinalMinima33[FinalMinima33$difcheck <= 100 & FinalMinima33$difcheck >= -100, ]
 
-  plot(y = FinalMinima4$Pressure, x = FinalMinima4$Relative_time)
+  plot(y = FinalMinima3$Pressure, x = FinalMinima3$Relative_time)
 }
 
 #' Calculate Pulse wave and Fit non-parametric curve
@@ -168,7 +168,7 @@ localvalremoveMin <- function(x) {
 #' @return predpulsewave -- data table of predicted pulse pressure values
 #' @export nonparam
 #'
-#' @examples nonparam(FinalMaxima4, FinalMinima4, name)
+#' @examples nonparam(FinalMaxima3, FinalMinima3, name)
 nonparam <- function(x, y, n) {
   a <- min(x$Relative_time)
   b <- max(x$Relative_time)
@@ -357,15 +357,23 @@ inflecpoints <- function(x) {
 #' @examples Clientgraph(Pre, Post, "name", "0", "600", "0", "300")
 Clientgraph <- function(x, y, n) {
   wd <- getwd()
-  tem <- paste0(wd, "/inflectionpoints", n, "_Post.csv")
-  infec2 <- as.data.table(read.csv(tem))
-  infec3 <- infec2 %>% arrange(desc(Pulse_Wave))
-  max <- as.numeric(infec3[1, "Pulse_Wave"])
-  rmax <- (max*0.15+max)
+
+  infec2 <- as.data.table(x) #read in the Pre input into a data table
+  infec3 <- infec2 %>% arrange(desc(Pulse_Wave)) #order by magnitude of pulse wave
+  max <- as.numeric(infec3[1, "Pulse_Wave"]) #take the first row which is the max value now
+  rmax <- (max*0.05+max) #add a little bit of value so the graph doesn't extend fully to the top
+
+  infec2 <- as.data.table(y)
+  infec3 <- infec2 %>% arrange(desc(Pulse_Wave)) #order by magnitude of pulse wave
+  max <- as.numeric(infec3[1, "Pulse_Wave"]) #take
+  rmax2 <- (max*0.05+max)
+
+  rmax <- if(rmax > rmax2) rmax else rmax2 #if else statement to ensure that the true max from the pre and post is selected
+
   pres <- y %>% arrange(desc(Relative_time))
   tmax <- as.numeric(pres[1, "Relative_time"])
   ttmax <- tmax/2.16
-  ttmax2 <- (ttmax*0.05+ttmax)
+  ttmax2 <- (ttmax*0.08+ttmax)
 
   name2 <- paste0("ClientGraph_", n, ".png")
   x$Time <- x$Relative_time/2.16 #multiplier is to turn relative units to seconds calculated from a reference screenshot
@@ -381,11 +389,11 @@ Clientgraph <- function(x, y, n) {
     annotation_custom(g, xmin=(ttmax2-.95*ttmax2), xmax=(0.95*ttmax2), ymin=(rmax-0.95*rmax), ymax=(0.95*rmax)) +
     #annotation_custom(ref2, xmin=210, xmax=Inf, ymin=-Inf, ymax=100)+
     geom_point(color= "#197E9A") +
-    geom_point(data=x[x$min == "1",],color="#002f65",size=3) +
     geom_point(data=x[x$intslope == "1",],color="#2dbfc6") +
+    geom_point(data=x[x$min == "1",],color="#002f65",size=3) +
     geom_point(data = y, color="#cd2400") +
-    geom_point(data=y[y$min == "1",],color="#8b0000",size=3) +
     geom_point(data=y[y$intslope == "1",],color="#FF4F00") +
+    geom_point(data=y[y$min == "1",],color="#8b0000",size=3) +
     #geom_hline(yintercept=c(125, 200), linetype='dashed', color=c('red', 'red')) +
     xlim(0, ttmax2) +
     ylim(0, rmax) +
@@ -402,7 +410,7 @@ Clientgraph <- function(x, y, n) {
       #panel.background = element_rect(fill = "transparent"),
       legend.position="none")
 
-  ggsave(
+suppressWarnings(print(ggsave(
     name2,
     plot = last_plot(),
     path = wd,
@@ -410,5 +418,9 @@ Clientgraph <- function(x, y, n) {
     width = 6.03,
     height = 7.04
     #bg = "transparent"
-  )
+  )))
+
+  infec3 <- infec2 %>% arrange(Pulse_Wave) #order by magnitude of pulse wave
+  max <- as.numeric(infec3[1, "Pulse_Wave"]) #take the first row which is the max value now
+  Line <<- if(max < 0) "Negative Initial Pulse Wave Calculated -- Check the EndoPat for delayed Relaxation Response" else "Normal Initial Pulse Wave Calculated"
 }

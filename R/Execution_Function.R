@@ -27,7 +27,7 @@ iCe_pre <- function(x, y) {
   print ("Max Values Cleaned")
   localvalremoveMin(MinimaRows)
   print ("Min Values Cleaned")
-  nonparam(FinalMaxima4, FinalMinima4, name)
+  nonparam(FinalMaxima3, FinalMinima3, name)
   firstdev(predpulsewave, name)
   print ("Graphing Done")
   initialslope(predpulsewave, name)
@@ -71,7 +71,7 @@ iCe_post <- function(x, y) {
   print ("Max Values Cleaned")
   localvalremoveMin(MinimaRows)
   print ("Min Values Cleaned")
-  nonparam(FinalMaxima4, FinalMinima4, name)
+  nonparam(FinalMaxima3, FinalMinima3, name)
   firstdev(predpulsewave, name)
   print ("Graphing Done")
   initialslope(predpulsewave, name)
@@ -110,10 +110,12 @@ iCe_demo <- function(x, y, n) {
   iCe_post(y, n)
   Clientgraph(Pre, Post, n)
 
+  print(Line)
+
   #Clean Up
   rm(data2, envir = .GlobalEnv)
-  rm(FinalMaxima4, envir = .GlobalEnv)
-  rm(FinalMinima4, envir = .GlobalEnv)
+  rm(FinalMaxima3, envir = .GlobalEnv)
+  rm(FinalMinima3, envir = .GlobalEnv)
   rm(MaximaRows, envir = .GlobalEnv)
   rm(MinimaRows, envir = .GlobalEnv)
   rm(predpulsewave, envir = .GlobalEnv)
@@ -123,6 +125,7 @@ iCe_demo <- function(x, y, n) {
   rm(newvals2, envir = .GlobalEnv)
   rm(Pre, envir = .GlobalEnv)
   rm(Post, envir = .GlobalEnv)
+  rm(Line, envir = .GlobalEnv)
 }
 
 
