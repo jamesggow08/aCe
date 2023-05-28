@@ -95,7 +95,7 @@ calcLocalMin <- function(x) {
 #'
 #' @param x Dataset of local maxima in ingested dataset
 #'
-#' @return FinalMaxima3 -- Dataset of cleaned local maxima (nearly completely diastolic BP) in ingested dataset
+#' @return FinalMaxima4 -- Dataset of cleaned local maxima (nearly completely diastolic BP) in ingested dataset
 #' @export localvalremoveMax
 #'
 #'
@@ -110,17 +110,17 @@ localvalremoveMax <- function(x) {
   setorder(x, cols = "Relative_time")
   FinalMaxima2 <- mutate(x, difcheck = Pressure + -lag(Pressure)) #calculate a new column to find difference in pressure between adjacent two points (to reveal where pressure jump is high and, thus, likely part of dichroic notch)
   FinalMaxima2[is.na(FinalMaxima2)] <- 0 #recode NA to 0
-  FinalMaxima3 <<- FinalMaxima2[FinalMaxima2$difcheck >= -100 & FinalMaxima2$difcheck <= 100, ] #select only columns where change in pressure isn't >100
+  FinalMaxima3 <- FinalMaxima2[FinalMaxima2$difcheck >= -100 & FinalMaxima2$difcheck <= 100, ] #select only columns where change in pressure isn't >100
 
-  #FinalMaxima31 <- mutate(FinalMaxima3, difcheck = Pressure + -lag(Pressure)) #cycling to remove clusters of aberrant data
-  #FinalMaxima31[is.na(FinalMaxima31)] <- 0
-  #FinalMaxima32 <- FinalMaxima31[FinalMaxima31$difcheck <= 100 & FinalMaxima31$difcheck >= -100, ]
+  FinalMaxima31 <- mutate(FinalMaxima3, difcheck = Pressure + -lag(Pressure)) #cycling to remove clusters of aberrant data
+  FinalMaxima31[is.na(FinalMaxima31)] <- 0
+  FinalMaxima32 <- FinalMaxima31[FinalMaxima31$difcheck <= 100 & FinalMaxima31$difcheck >= -100, ]
 
-  #FinalMaxima33 <- mutate(FinalMaxima32, difcheck = Pressure + -lag(Pressure))
-  #FinalMaxima33[is.na(FinalMaxima33)] <- 0
-  #FinalMaxima4 <<- FinalMaxima33[FinalMaxima33$difcheck <= 100 & FinalMaxima33$difcheck >= -100, ]
+  FinalMaxima33 <- mutate(FinalMaxima32, difcheck = Pressure + -lag(Pressure))
+  FinalMaxima33[is.na(FinalMaxima33)] <- 0
+  FinalMaxima4 <<- FinalMaxima33[FinalMaxima33$difcheck <= 100 & FinalMaxima33$difcheck >= -100, ]
 
-  plot(y = FinalMaxima3$Pressure, x = FinalMaxima3$Relative_time)
+  plot(y = FinalMaxima4$Pressure, x = FinalMaxima4$Relative_time)
   }
 
 #' Clean Minima output to isolate valid diastolic BP
@@ -130,7 +130,7 @@ localvalremoveMax <- function(x) {
 #'
 #' @param x Dataset of local maxima in ingested dataset
 #'
-#' @return FinalMaxima3 -- Dataset of cleaned local maxima in ingested dataset
+#' @return FinalMinima4 -- Dataset of cleaned local maxima in ingested dataset
 #' @export localvalremoveMin
 #'
 #' @examples localvalremoveMin(MinimaRows)
@@ -146,15 +146,15 @@ localvalremoveMin <- function(x) {
   FinalMinima2[is.na(FinalMinima2)] <- 0
   FinalMinima3 <<- FinalMinima2[FinalMinima2$difcheck <= 100 & FinalMinima2$difcheck >= -100, ]
 
-  #FinalMinima31 <- mutate(FinalMinima3, difcheck = Pressure + -lag(Pressure)) #cycling to remove clusters of abberant data
-  #FinalMinima31[is.na(FinalMinima31)] <- 0
-  #FinalMinima32 <- FinalMinima31[FinalMinima31$difcheck <= 100 & FinalMinima31$difcheck >= -100, ]
+  FinalMinima31 <- mutate(FinalMinima3, difcheck = Pressure + -lag(Pressure)) #cycling to remove clusters of abberant data
+  FinalMinima31[is.na(FinalMinima31)] <- 0
+  FinalMinima32 <- FinalMinima31[FinalMinima31$difcheck <= 100 & FinalMinima31$difcheck >= -100, ]
 
-  #FinalMinima33 <- mutate(FinalMinima32, difcheck = Pressure + -lag(Pressure))
-  #FinalMinima33[is.na(FinalMinima33)] <- 0
-  #FinalMinima4 <- FinalMinima33[FinalMinima33$difcheck <= 100 & FinalMinima33$difcheck >= -100, ]
+  FinalMinima33 <- mutate(FinalMinima32, difcheck = Pressure + -lag(Pressure))
+  FinalMinima33[is.na(FinalMinima33)] <- 0
+  FinalMinima4 <<- FinalMinima33[FinalMinima33$difcheck <= 100 & FinalMinima33$difcheck >= -100, ]
 
-  plot(y = FinalMinima3$Pressure, x = FinalMinima3$Relative_time)
+  plot(y = FinalMinima4$Pressure, x = FinalMinima4$Relative_time)
 }
 
 #' Calculate Pulse wave and Fit non-parametric curve
@@ -168,7 +168,7 @@ localvalremoveMin <- function(x) {
 #' @return predpulsewave -- data table of predicted pulse pressure values
 #' @export nonparam
 #'
-#' @examples nonparam(FinalMaxima3, FinalMinima3, name)
+#' @examples nonparam(FinalMaxima4, FinalMinima4, name)
 nonparam <- function(x, y, n) {
   a <- min(x$Relative_time)
   b <- max(x$Relative_time)
