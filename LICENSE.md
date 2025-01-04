@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2023 Castle BioTech
+Copyright (c) 2025 MoMed Fitness
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
