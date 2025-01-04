@@ -399,13 +399,13 @@ Clientgraph <- function(x, y, n) {
     ylim(0, rmax) +
     theme_classic() +
     xlab("Time (seconds)")+
-    ylab("Pulse Pressure")+
+    ylab("Relative Pulse Pressure")+
     theme(
       axis.title.x = element_text(size = 16, face="bold"),
       axis.text.x = element_text(size = 14),
       axis.title.y = element_text(size = 16, face="bold"),
-      axis.text.y = element_blank(),
-      axis.ticks.y = element_blank(),
+      axis.text.y = element_text(size = 14),
+      axis.ticks.y = element_line(),
       #plot.background = element_rect(fill = "transparent", color = NA),
       #panel.background = element_rect(fill = "transparent"),
       legend.position="none")
