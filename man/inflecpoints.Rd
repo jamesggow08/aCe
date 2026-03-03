@@ -13,7 +13,7 @@ inflecpoints(x)
 inflection_points -- two lowest amplitude minima of the first derivative graph
 }
 \description{
-Finds the inflection points of the pulse pressure graph to be used in iCe
+Finds the inflection points of the pulse pressure graph to be used in aCe
 }
 \examples{
 inflecpoints(dapulsewave)

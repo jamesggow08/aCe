@@ -20,5 +20,5 @@ predpulsewave -- data table of predicted pulse pressure values
 This function calculates a non-parametric curve (spline) for the systolic and then diastolic BP data tables, predicts a set of values for each, and uses the predicted values to calculate a pulse pressure for which it then outputs a nonparametric curve
 }
 \examples{
-nonparam(FinalMaxima3, FinalMinima3, name)
+nonparam(FinalMaxima4, FinalMinima4, name)
 }

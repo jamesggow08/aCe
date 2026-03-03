@@ -2,7 +2,7 @@
 % Please edit documentation in R/Basic_Functions.R
 \name{read_data}
 \alias{read_data}
-\title{Ingest BP data to prepare for iCe}
+\title{Ingest BP data to prepare for aCe}
 \usage{
 read_data(x)
 }

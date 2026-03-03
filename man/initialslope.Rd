@@ -15,7 +15,7 @@ initialslope(x, n)
 InitialSlope_n.png
 }
 \description{
-This is used to find a linear regression of the first portion of the graph to be output for use in iCe
+This is used to find a linear regression of the first portion of the graph to be output for use in aCe
 }
 \examples{
 initialslope(predpulsewave, name)

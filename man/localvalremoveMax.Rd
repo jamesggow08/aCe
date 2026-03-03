@@ -10,7 +10,7 @@ localvalremoveMax(x)
 \item{x}{Dataset of local maxima in ingested dataset}
 }
 \value{
-FinalMaxima3 -- Dataset of cleaned local maxima (nearly completely diastolic BP) in ingested dataset
+FinalMaxima4 -- Dataset of cleaned local maxima (nearly completely diastolic BP) in ingested dataset
 }
 \description{
 local maxima for a pressure wave will find systolic BP but also a point into a dichroic notch which this function will aim to remove

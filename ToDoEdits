@@ -1,4 +1,4 @@
 To Do List:
 • Do we want to apply the stronger plyr rounding filter for cleaning up data?
 • How do we want to decide on the bounds of the ggplot graph?
-• Can we export the endopat to images instead of using screen shot so the computer pdf window size doesnt affect results?
+• Dictating a y axis units which are based on baseline pulse pressure percentage instead of graphical units

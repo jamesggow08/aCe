@@ -20,5 +20,5 @@ ClientGraph_test.png
 Make a ggplot overlay for client viewing
 }
 \examples{
-Clientgraph(Pre, Post, "name", "0", "600", "0", "300")
+Clientgraph(Pre, Post, "name")
 }

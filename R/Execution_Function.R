@@ -1,4 +1,4 @@
-#' Takes data extracted from EndoPAT graph to determine inputs for iCe for the pre exercise data
+#' Takes data extracted from EndoPAT graph to determine inputs for aCe for the pre exercise data
 #'
 #'
 #' @param x dataset created by the EndoPAT graph
@@ -12,10 +12,11 @@
 #' @return InitialSlope.png of Initial linear portion of the pulse pressure graph
 #' @export
 #'
-#' @import data.table
+#' @importFrom dplyr arrange
+#' @importFrom magrittr %>%
 #'
-#' @examples iCe_pre("data.csv", "test")
-iCe_pre <- function(x, y) {
+#' @examples aCe_pre("data.csv", "test")
+aCe_pre <- function(x, y) {
   name <- paste0(y, "_Pre")
   read_data(x)
   print ("Data Read Success")
@@ -40,11 +41,11 @@ iCe_pre <- function(x, y) {
   write.table(inflection_points3, file=name, sep=",", row.names = FALSE)
   print ("Inflection Points Found")
   name <- paste0(y, "_Pre")
-  iCegraph(x = predpulsewave, n=name)
+  aCegraph(x = predpulsewave, n=name)
   print ("New Graph Added")
 }
 
-#' Takes data extracted from EndoPAT graph to determine inputs for iCe for the pre exercise data
+#' Takes data extracted from EndoPAT graph to determine inputs for aCe for the post exercise data
 #'
 #'
 #' @param x dataset created by the EndoPAT graph
@@ -58,8 +59,8 @@ iCe_pre <- function(x, y) {
 #' @return InitialSlope.png of Initial linear portion of the pulse pressure graph
 #' @export
 #'
-#' @examples iCe_demo("data.csv", "test")
-iCe_post <- function(x, y) {
+#' @examples aCe_post("data.csv", "test")
+aCe_post <- function(x, y) {
   name <- paste0(y, "_Post")
   read_data(x)
   print ("Data Read Success")
@@ -84,11 +85,11 @@ iCe_post <- function(x, y) {
   write.table(inflection_points3, file=name, sep=",", row.names = FALSE)
   print ("Inflection Points Found")
   name <- paste0(y, "_Post")
-  iCegraph(x = predpulsewave, n=name)
+  aCegraph(x = predpulsewave, n=name)
   print ("New Graph Added")
 }
 
-#' Runs pre are post exercise iCe functions and prepares output overlay graph
+#' Runs pre are post exercise aCe functions and prepares output overlay graph
 #'
 #' @param x pre exercise dataset created by the EndoPAT graph
 #' @param y post exercise dataset created by the EndoPAT graph
@@ -100,14 +101,12 @@ iCe_post <- function(x, y) {
 #' @return PulseWave.png of Pulse pressure graph
 #' @return FirstDev.png of Pulse pressure graph first derivative
 #' @return InitialSlope.png of Initial linear portion of the pulse pressure graph
-#' @export iCe_demo
+#' @export aCe_demo
 #'
-#' @examples iCe_demo("data_PreT.csv", "data_PostT.csv", "Patient_name")
-iCe_demo <- function(x, y, n) {
-  m <<- "Pre"
-  iCe_pre(x, n)
-  m <<- "Post"
-  iCe_post(y, n)
+#' @examples aCe_demo("data_PreT.csv", "data_PostT.csv", "Patient_name")
+aCe_demo <- function(x, y, n) {
+  aCe_pre(x, n)
+  aCe_post(y, n)
   Clientgraph(Pre, Post, n)
 
   print(Line)
@@ -121,7 +120,6 @@ iCe_demo <- function(x, y, n) {
   rm(predpulsewave, envir = .GlobalEnv)
   rm(dapulsewave, envir = .GlobalEnv)
   rm(inflection_points, envir = .GlobalEnv)
-  rm(m, envir = .GlobalEnv)
   rm(newvals2, envir = .GlobalEnv)
   rm(Pre, envir = .GlobalEnv)
   rm(Post, envir = .GlobalEnv)

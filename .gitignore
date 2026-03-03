@@ -1,0 +1,9 @@
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+.DS_Store
+Thumbs.db
+*.tar.gz
+Rplots.pdf

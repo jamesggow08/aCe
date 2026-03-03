@@ -7,7 +7,11 @@
 #'
 #' @return Person_ExerciseStatus_TrtGroup.csv
 #'
-#' @import raster
+#' @importFrom raster raster
+#' @importMethodsFrom raster as.data.frame
+#' @importMethodsFrom raster plot
+#' @importFrom data.table as.data.table
+#'
 #' @export Image_Process
 #'
 #' @examples Image_Process("patient.png", "AndrewGow_Pre", "T")
